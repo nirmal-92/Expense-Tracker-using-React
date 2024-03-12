@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import {ExpenseItem} from './screens/ExpenseItem.jsx'
 import ExpenseTrackerForm from './screens/ExpenseTrackerForm.jsx'
+import { AppBar } from './screens/AppBar.jsx'
 
 function App() {
   const [income,setIncome]=useState(0);
@@ -84,6 +85,7 @@ function App() {
 
   return (
     <>
+    <AppBar/>
       <div>
         <div>Expense Tracker</div>
         <div className='income-expense-container'> 

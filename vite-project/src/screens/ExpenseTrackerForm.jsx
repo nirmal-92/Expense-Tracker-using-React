@@ -1,13 +1,54 @@
-const ExpenseTrackerForm=()=>{
-    return <form className="form">
-        <div className="input-container">
+import { useEffect, useState } from "react"
+
+const ExpenseTrackerForm=(props)=>{
+    const [errors, setErrors]=useState({});
+    const [title,setTitle]=useState("");
+    const [amount,setAmount]=useState(0);
+    
+    const handleSubmit=(e)=>{
+        e.preventDefault()
+            if(!title && amount===0){
+                setErrors({...errors,title:"Title is required",amount:"Amount is required"})
+            }else if(amount===0){
+                setErrors({...errors,title:"",amount:"Enter a vaild amount"})
+            }else if(!title){
+                setErrors({...errors,title:"Enter a title",amount:""})
+            }else{
+                if(props.isEdit){
+                    props.handleClick({title,amount,id:props.editData.id})
+                }
+                else{
+                    props.handleClick({title,amount})
+                }
+                setTitle("");
+                setAmount("");
+            }
+    }
+    const handleChangeTitle=(e)=>{
+        setTitle(e.target.value)
+    }
+    const handleChangeAmount=(e)=>{
+        setAmount(e.target.value)
+    }
+
+    useEffect(()=>{
+        if(props.isEdit){
+            setTitle(props.editData.title)
+            setAmount(props.editData.amount)
+        }
+    },[props.isEdit])
+    console.log(errors)
+    return <form className="form" onSubmit={handleSubmit}>
+        <div className="input-container" onSubmit={handleChangeTitle}>
+            
             <div>Title</div>
-            <input type="text" />
-            <div className="error">error</div>
+            <input type="text" onChange={handleChangeTitle} className="input" value={title}/>
+            {errors.title && <div className="error">title is required</div>}
 
             <div>Amount</div>
-            <input type="number" className="input"/>
-            <div className="error">error</div>
+            <input type="number" onChange={handleChangeAmount} className="input" value={amount}/>
+            {errors.amount && <div className="error">amount is required</div>}
+
             <button type="submit">Add Transaction</button>
         </div>
     </form>

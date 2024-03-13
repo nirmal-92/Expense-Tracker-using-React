@@ -15,9 +15,10 @@ export const AppBar=(props)=>{
     return <div className="appbarParent">
         <img src={reactLogo} className='appBarImg'/>
         <div className='appBarNav'>
+            <h2>Website</h2>
             <li>Home</li>
-            <li>contact</li>
-            <li>about</li>
+            <li>About</li>
+            <li>Contact</li>
             <h1>{props.name}</h1>
             <h1>{props.num}</h1>
             <button onClick={handleClick}>{isLoggedIn?"LogOut":"Login"}</button>

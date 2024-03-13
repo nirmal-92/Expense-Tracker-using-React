@@ -32,8 +32,11 @@
   h1 {
     font-size: 3rem;
     line-height: 1.1;
+    color: red;
   }
-  
+  h2{
+    margin-right: 36rem;
+  }
   button {
     border-radius: 8px;
     border: 1px solid transparent;
@@ -98,8 +101,6 @@
     align-items: center;
     list-style-type: none;
   }
-  
-  
   .appBarNav li{
     list-style: none;
   }

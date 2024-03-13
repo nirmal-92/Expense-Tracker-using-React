@@ -4,15 +4,17 @@ const ExpenseTrackerForm=(props)=>{
     const [errors, setErrors]=useState({});
     const [title,setTitle]=useState("");
     const [amount,setAmount]=useState(0);
-    
+    const [date,setDate]=useState("");
     const handleSubmit=(e)=>{
         e.preventDefault()
             if(!title && amount===0){
-                setErrors({...errors,title:"Title is required",amount:"Amount is required"})
+                setErrors({...errors,title:"Title is required",amount:"Amount is required",date:"Date is required"})
             }else if(amount===0){
                 setErrors({...errors,title:"",amount:"Enter a vaild amount"})
             }else if(!title){
                 setErrors({...errors,title:"Enter a title",amount:""})
+            }else if(!date){
+                setErrors({...errors,title:"",amount:"",date:"Enter a Date"})
             }else{
                 if(props.isEdit){
                     props.handleClick({title,amount,id:props.editData.id})
@@ -22,6 +24,7 @@ const ExpenseTrackerForm=(props)=>{
                 }
                 setTitle("");
                 setAmount("");
+                setDate("")
             }
     }
     const handleChangeTitle=(e)=>{
@@ -30,7 +33,9 @@ const ExpenseTrackerForm=(props)=>{
     const handleChangeAmount=(e)=>{
         setAmount(e.target.value)
     }
-
+    const handleChangeDate=(e)=>{
+        setDate(e.target.value)
+    }
     useEffect(()=>{
         if(props.isEdit){
             setTitle(props.editData.title)
@@ -48,6 +53,10 @@ const ExpenseTrackerForm=(props)=>{
             <div>Amount</div>
             <input type="number" onChange={handleChangeAmount} className="input" value={amount}/>
             {errors.amount && <div className="error">amount is required</div>}
+
+            <div>Date</div>
+            <input type="date" onChange={handleChangeDate} className="input" value={date} />
+            {errors.date && <div className="error"> Date is required </div>}
 
             <button type="submit">Add Transaction</button>
         </div>
